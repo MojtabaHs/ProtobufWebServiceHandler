@@ -12,7 +12,7 @@
 
 import Foundation
 
-open class ProtobufParsingManager: Parser { }
+open class ProtobufParsingManager: ProtobufParser { }
 
 public extension ProtobufParsingManager {
     static let `default` = ProtobufParsingManager()
