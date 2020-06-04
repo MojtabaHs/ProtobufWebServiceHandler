@@ -15,5 +15,10 @@ import Foundation
 public protocol ProtobufParser: Parser { }
 
 public extension ProtobufParser {
-    func parseData<T: Parsable>(_ data: Data, to: T.Type) throws -> T { try T.init(serializedData: data)}
+    func parseData<T: Parsable>(_ data: Data, to: T.Type) throws -> T {
+        print(T.self)
+        print(T.Type.self)
+        return try T.init(serializedData: data)
+
+    }
 }

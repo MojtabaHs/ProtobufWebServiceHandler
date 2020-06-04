@@ -5,6 +5,9 @@ import PackageDescription
 
 let package = Package(
     name: "ProtobufWebServiceHandler",
+    platforms: [
+        .macOS(.v10_10), .iOS(.v8),
+    ],
     products: [
         // Products define the executables and libraries produced by a package, and make them visible to other packages.
         .library(
@@ -13,7 +16,7 @@ let package = Package(
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
-        .package(name: "SwiftProtobuf", url: "https://github.com/apple/swift-protobuf", from: "1.8.0"),
+        .package(name: "SwiftProtobuf", url: "https://github.com/apple/swift-protobuf", from: "1.9.0"),
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
