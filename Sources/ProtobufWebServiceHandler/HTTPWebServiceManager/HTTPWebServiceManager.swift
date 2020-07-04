@@ -32,6 +32,20 @@ open class HTTPWebServiceManager: HTTPWebServiceHandler {
                 self.responseHandler.handleResponse(data: data, response: response, error: error, success: success, failure: failure)
         })
     }
+
+    open func resumeUploadTask<T: Parsable, U: Parsable>(
+        urlRequestable: URLRequestable,
+        bodyData: Data?,
+        success: @escaping (T?) -> Void = { _ in },
+        failure: @escaping (U?, Error?) -> Void = { _, _ in }) throws -> URLSessionDataTask {
+
+        try requestHandler.resumeUploadTask(
+            urlRequestable: urlRequestable,
+            bodyData: bodyData,
+            completionHandler: { (data, response, error) in
+                self.responseHandler.handleResponse(data: data, response: response, error: error, success: success, failure: failure)
+            })
+    }
 }
 
 public extension HTTPWebServiceManager {
