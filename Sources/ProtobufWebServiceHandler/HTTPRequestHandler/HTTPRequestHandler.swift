@@ -21,7 +21,7 @@ public protocol HTTPRequestHandler {
     var urlRequestAdapters: [URLRequestAdapter] { get }
     func resumeDataTask(urlRequestable: URLRequestable, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) throws -> URLSessionDataTask
 
-    func resumeUploadTask(urlRequestable: URLRequestable, bodyData: Data?, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) throws -> URLSessionDataTask
+    func resumeUploadTask(urlRequestable: URLRequestable, bodyData: Data?, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) throws -> URLSessionUploadTask
 }
 
 public extension HTTPRequestHandler {
@@ -53,7 +53,7 @@ public extension HTTPRequestHandler {
 
 public extension HTTPRequestHandler {
 
-    func resumeUploadTask(urlRequestable: URLRequestable, bodyData: Data?, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) throws -> URLSessionDataTask {
+    func resumeUploadTask(urlRequestable: URLRequestable, bodyData: Data?, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) throws -> URLSessionUploadTask {
 
         let originalURLRequest = try urlRequestable.urlRequest()
 

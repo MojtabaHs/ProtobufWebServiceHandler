@@ -25,7 +25,7 @@ public protocol HTTPWebServiceHandler {
         urlRequestable: URLRequestable,
         bodyData: Data?,
         success: @escaping ((T?) -> Void),
-        failure: @escaping (U?, Error?) -> Void) throws -> URLSessionDataTask
+        failure: @escaping (U?, Error?) -> Void) throws -> URLSessionUploadTask
 }
 
 public extension HTTPWebServiceHandler {
@@ -45,7 +45,7 @@ public extension HTTPWebServiceHandler {
         urlRequestable: URLRequestable,
         bodyData: Data?,
         success: @escaping ((T?) -> Void) = { _ in },
-        failure: @escaping (U?, Error?) -> Void = { _, _ in }) throws -> URLSessionDataTask {
+        failure: @escaping (U?, Error?) -> Void = { _, _ in }) throws -> URLSessionUploadTask {
 
         try requestHandler.resumeUploadTask(
             urlRequestable: urlRequestable,
