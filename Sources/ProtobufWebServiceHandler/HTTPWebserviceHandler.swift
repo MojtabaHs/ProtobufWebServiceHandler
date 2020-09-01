@@ -37,7 +37,11 @@ public extension HTTPWebServiceHandler {
         try requestHandler.resumeDataTask(
             urlRequestable: urlRequestable,
             completionHandler: { (data, response, error) in
-                self.responseHandler.handleResponse(data: data, response: response, error: error, success: success, failure: failure)
+                do {
+                    self.responseHandler.handleResponse(request: try urlRequestable.urlRequest(), data: data, response: response, error: error, success: success, failure: failure)
+                } catch {
+                    assertionFailure("Requested request could not have any errors to throw")
+                }
         })
     }
 
@@ -51,7 +55,11 @@ public extension HTTPWebServiceHandler {
             urlRequestable: urlRequestable,
             bodyData: bodyData,
             completionHandler: { (data, response, error) in
-                self.responseHandler.handleResponse(data: data, response: response, error: error, success: success, failure: failure)
+                do {
+                    self.responseHandler.handleResponse(request: try urlRequestable.urlRequest(), data: data, response: response, error: error, success: success, failure: failure)
+                } catch {
+                    assertionFailure("Requested request could not have any errors to throw")
+                }
             })
     }
 }

@@ -13,25 +13,25 @@
 import Foundation
 
 public protocol ResponseAdapter {
-    func adaptedResponse(data: Data?, response: URLResponse?, error: Error?) -> (data: Data?, response: URLResponse?, error: Error?)
+    func adaptedResponse(request: URLRequest, data: Data?, response: URLResponse?, error: Error?) -> (request: URLRequest, data: Data?, response: URLResponse?, error: Error?)
 }
 
 public protocol HTTPResponseHandler {
     var parser: Parser { get }
     var responseAdapters: [ResponseAdapter] { get }
-    func handleResponse<T: Parsable, U: Parsable>(data: Data?, response: URLResponse?, error: Error?, success: @escaping (T?) -> Void, failure: @escaping (U?, Error?) -> Void)
+    func handleResponse<T: Parsable, U: Parsable>(request: URLRequest, data: Data?, response: URLResponse?, error: Error?, success: @escaping (T?) -> Void, failure: @escaping (U?, Error?) -> Void)
 }
 
 public extension HTTPResponseHandler {
     var responseAdapters: [ResponseAdapter] { [] }
     
-    func handleResponse<T: Parsable, U: Parsable>(data: Data?, response: URLResponse?, error: Error?, success: @escaping (T?) -> Void, failure: @escaping (U?, Error?) -> Void) {
+    func handleResponse<T: Parsable, U: Parsable>(request: URLRequest, data: Data?, response: URLResponse?, error: Error?, success: @escaping (T?) -> Void, failure: @escaping (U?, Error?) -> Void) {
         
-        let originalResponse = (data: data, response: response, error: error)
+        let originalResponse = (request: request, data: data, response: response, error: error)
         
         var adaptedResponse = originalResponse
         for adapter in responseAdapters {
-            adaptedResponse = adapter.adaptedResponse(data: data, response: response, error: error)
+            adaptedResponse = adapter.adaptedResponse(request: request, data: data, response: response, error: error)
         }
         
         // MARK: Adapt and check error
